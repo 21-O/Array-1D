@@ -1,0 +1,85 @@
+#include <iostream>
+
+int main() {
+    int size;
+
+    // Banyaknya Data yang Diinput
+    std::cout << "Input Jumlah Array: ";
+    std::cin >> size;
+
+    // Membuat Array Dinamis
+    int* arr = new int[size];
+
+    // Input Data
+    for (int i = 0; i < size; i++) {
+        std::cout << "Input Data Array ke-" << i + 1 << ": ";
+        std::cin >> arr[i];
+    }
+
+    std::cout << std::endl;
+
+    // Menampilkan Data Sebelum Diurutkan
+    std::cout << "Data Array anda adalah: ";
+    for (int i = 0; i < size; ++i) {
+        std::cout << arr[i];
+        if (i != size - 1) {
+            std::cout << ",";
+        }
+    }
+    std::cout << std::endl;
+
+    // Mengurutkan Data
+    for (int i = 0; i < size - 1; i++) {
+        int min_index = i;
+        for (int j = i + 1; j < size; j++) {
+            if (arr[j] < arr[min_index]) {
+                min_index = j;
+            }
+        }
+        // Swapping
+        int temp = arr[i];
+        arr[i] = arr[min_index];
+        arr[min_index] = temp;
+    }
+
+    // Menampilkan Data yang Sudah Diurutkan
+    std::cout << "Data Array setelah diurutkan Asc: ";
+    for (int i = 0; i < size; ++i) {
+        std::cout << arr[i];
+        if (i != size - 1) {
+            std::cout << ",";
+        }
+    }
+    std::cout << std::endl;
+
+    // Cari Data
+    int searchData;
+    char continueSearch = 'y';
+
+    while (continueSearch == 'y' || continueSearch == 'Y') {
+        std::cout << "Cari data: ";
+        std::cin >> searchData;
+
+        int position = -1;
+        for (int i = 0; i < size; i++) {
+            if (arr[i] == searchData) {
+                position = i + 1;
+                break;
+            }
+        }
+
+        if (position != -1) {
+            std::cout << "Ditemukan, pada urutan ke-" << position << std::endl;
+        } else {
+            std::cout << "Data tidak ditemukan" << std::endl;
+        }
+
+        std::cout << "Cari data lagi? (y/n): ";
+        std::cin >> continueSearch;
+    }
+
+    // Menghapus Memori yang Dialokasikan
+    delete[] arr;
+
+    return 0;
+}
